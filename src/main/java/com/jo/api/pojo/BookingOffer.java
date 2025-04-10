@@ -1,13 +1,23 @@
 package com.jo.api.pojo;
 
-import lombok.Data;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 
-@Data
+@Getter
+@Setter
+@Entity
 public class BookingOffer {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bookingOfferId;
+
     private String title;
     private BigDecimal price;
     private Integer numberOfCustomers;
