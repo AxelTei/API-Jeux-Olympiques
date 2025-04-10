@@ -3,10 +3,7 @@ package com.jo.api.ws;
 import com.jo.api.pojo.BookingOffer;
 import com.jo.api.service.BookingOfferService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,5 +31,15 @@ public class BookingOfferController {
     @GetMapping("/{title}")
     public BookingOffer getBookingOfferByTitle(@PathVariable("title") String title) {
         return bookingOfferService.getBookingOfferByTitle(title);
+    }
+
+    @PostMapping
+    public BookingOffer createBookingOffer(@RequestBody BookingOffer bookingOffer) {
+        return bookingOfferService.createBookingOffer(bookingOffer);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteBookingOfferById(PathVariable Long id) {
+        return bookingOfferService.deleteBookingOfferById(id);
     }
 }
