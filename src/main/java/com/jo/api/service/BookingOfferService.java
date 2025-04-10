@@ -1,6 +1,8 @@
 package com.jo.api.service;
 
 import com.jo.api.pojo.BookingOffer;
+import com.jo.api.repository.BookingOfferRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -10,28 +12,23 @@ import java.util.concurrent.atomic.AtomicLong;
 @Service
 public class BookingOfferService {
 
-    private final List<BookingOffer> bookingOffers = new ArrayList<>();
-
-    private final AtomicLong counter = new AtomicLong(1);
+    @Autowired
+    private BookingOfferRepository bookingOfferRepository;
 
     public List<BookingOffer> getAllBookingOffers() {
-        return bookingOffers;
+        return bookingOfferRepository.findAll();
     }
 
     public BookingOffer getBookingOfferByTitle(String title) {
-        return bookingOffers.stream()
-                .filter(bookingOffer -> bookingOffer.getTitle().equals(title))
-                .findAny()
-                .orElse(null);
+        return bookingOfferRepository.findByTitle(title);
     }
 
     public BookingOffer createBookingOffer(BookingOffer bookingOffer) {
-        bookingOffer.setBookingOfferId(counter.getAndIncrement());
-        bookingOffers.add(bookingOffer);
+        bookingOfferRepository.save(bookingOffer);
         return bookingOffer;
     }
 
     public void deleteBookingOfferById(Long id) {
-        bookingOffers.removeIf(bookingOffer -> bookingOffer.getBookingOfferId().equals(id));
+        bookingOfferRepository.deleteById(id);
     }
 }
