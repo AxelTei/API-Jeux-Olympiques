@@ -24,4 +24,14 @@ public class BookingOfferService {
                 .findAny()
                 .orElse(null);
     }
+
+    public BookingOffer createBookingOffer(BookingOffer bookingOffer) {
+        bookingOffer.setBookingOfferId(counter.getAndIncrement());
+        bookingOffers.add(bookingOffer);
+        return bookingOffer;
+    }
+
+    public void deleteBookingOfferById(Long id) {
+        bookingOffers.removeIf(bookingOffer -> bookingOffer.getBookingOfferId().equals(id));
+    }
 }
