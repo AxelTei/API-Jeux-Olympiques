@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping( value = "/api/toto")
-public class HelloController {
+@RequestMapping( value = ApiRegistration.API + ApiRegistration.REST_BOOKINGOFFER)
+public class BookingOfferController {
 
     @GetMapping
     public String helloWorld() {
