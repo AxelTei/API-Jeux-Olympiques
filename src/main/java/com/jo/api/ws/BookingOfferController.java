@@ -29,7 +29,7 @@ public class BookingOfferController {
      * @return une offre de réservation
      */
     @GetMapping("/{title}")
-    public BookingOffer getBookingOfferByTitle(@PathVariable("title") String title) {
+    public BookingOffer getBookingOfferByTitle(@PathVariable String title) {
         return bookingOfferService.getBookingOfferByTitle(title);
     }
 
@@ -39,7 +39,7 @@ public class BookingOfferController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteBookingOfferById(PathVariable Long id) {
-        return bookingOfferService.deleteBookingOfferById(id);
+    public void deleteBookingOfferById(@PathVariable Long id) {
+        bookingOfferService.deleteBookingOfferById(id);
     }
 }
