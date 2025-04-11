@@ -1,4 +1,4 @@
-package com.jo.api.security;
+package com.jo.api.security.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
