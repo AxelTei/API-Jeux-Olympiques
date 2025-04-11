@@ -42,4 +42,9 @@ public class BookingOfferController {
     public void deleteBookingOfferById(@PathVariable Long id) {
         bookingOfferService.deleteBookingOfferById(id);
     }
+
+    @PutMapping("/{id}")
+    public BookingOffer updateBookingOfferById(@PathVariable Long id, @RequestBody BookingOffer bookingOffer) {
+        return bookingOfferService.updateBookingOfferById(id, bookingOffer);
+    }
 }
