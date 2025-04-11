@@ -30,6 +30,9 @@ public class User {
     private String username;
 
     @NotBlank
+    private String email;
+
+    @NotBlank
     @Size(max=120)
     @Pattern(regexp = "(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,}", message = "Le mot de passe doit contenir 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.")
     private String password;
