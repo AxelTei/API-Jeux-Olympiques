@@ -16,7 +16,7 @@ public class BookingOfferController {
 
     /**
      * retourne toutes les offres de réservation
-     * @return une liste d'offre de réservation
+     * @return a list of booking offers
      */
     @GetMapping
     public List<BookingOffer> getAllBookingOffers() {
@@ -26,7 +26,7 @@ public class BookingOfferController {
     /**
      *
      * retourne une seule offre de réservation
-     * @return une offre de réservation
+     * @return one booking offer
      */
     @GetMapping("/{title}")
     public BookingOffer getBookingOfferByTitle(@PathVariable String title) {
