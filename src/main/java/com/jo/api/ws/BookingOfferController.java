@@ -48,12 +48,16 @@ public class BookingOfferController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteBookingOfferById(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteBookingOfferById(@PathVariable Long id) {
+        //bookingOfferService.deleteBookingOfferById(id);
         bookingOfferService.deleteBookingOfferById(id);
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
-    public BookingOffer updateBookingOfferById(@PathVariable Long id, @RequestBody BookingOffer bookingOffer) {
-        return bookingOfferService.updateBookingOfferById(id, bookingOffer);
+    public ResponseEntity<BookingOffer> updateBookingOfferById(@PathVariable Long id, @RequestBody BookingOffer bookingOffer) {
+        //return bookingOfferService.updateBookingOfferById(id, bookingOffer);
+        BookingOffer updatedBookingOffer = bookingOfferService.updateBookingOfferById(id, bookingOffer);
+        return (updatedBookingOffer != null) ? ResponseEntity.ok(updatedBookingOffer) : ResponseEntity.notFound().build();
     }
 }
