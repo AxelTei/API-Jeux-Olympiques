@@ -20,5 +20,5 @@ public class Booking {
     @Column(unique = true, nullable = false)
     private String userKey;
 
-    private List<String> guestNames;
+    private String guestNames;
 }
