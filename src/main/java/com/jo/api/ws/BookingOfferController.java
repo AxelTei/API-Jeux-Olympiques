@@ -3,6 +3,7 @@ package com.jo.api.ws;
 import com.jo.api.pojo.BookingOffer;
 import com.jo.api.service.BookingOfferService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,9 +29,11 @@ public class BookingOfferController {
      * retourne une seule offre de réservation
      * @return one booking offer
      */
-    @GetMapping("/{title}")
-    public BookingOffer getBookingOfferByTitle(@PathVariable String title) {
-        return bookingOfferService.getBookingOfferByTitle(title);
+    @GetMapping("/{id}")
+    public ResponseEntity<BookingOffer> getBookingOfferById(@PathVariable Long id) {
+        //return bookingOfferService.getBookingOfferById(id);
+        BookingOffer bookingOffer = bookingOfferService.getBookingOfferById(id);
+        return (bookingOffer != null) ? ResponseEntity.ok(bookingOffer) : ResponseEntity.notFound().build();
     }
 
     @PostMapping

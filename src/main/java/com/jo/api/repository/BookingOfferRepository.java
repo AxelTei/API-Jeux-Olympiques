@@ -8,6 +8,4 @@ import java.util.Arrays;
 import java.util.List;
 
 @Repository
-public interface BookingOfferRepository extends JpaRepository<BookingOffer, Long> {
-    BookingOffer findByTitle(String title);
-}
+public interface BookingOfferRepository extends JpaRepository<BookingOffer, Long> {}

@@ -19,10 +19,6 @@ public class BookingOfferService {
         return bookingOfferRepository.findAll();
     }
 
-    public BookingOffer getBookingOfferByTitle(String title) {
-        return bookingOfferRepository.findByTitle(title);
-    }
-
     public BookingOffer getBookingOfferById(Long id) {
         return bookingOfferRepository.findById(id).stream()
                 .filter(bookingOffer -> bookingOffer.getBookingOfferId().equals(id))
