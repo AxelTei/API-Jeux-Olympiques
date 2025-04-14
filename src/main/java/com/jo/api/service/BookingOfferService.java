@@ -20,10 +20,7 @@ public class BookingOfferService {
     }
 
     public BookingOffer getBookingOfferById(Long id) {
-        return bookingOfferRepository.findById(id).stream()
-                .filter(bookingOffer -> bookingOffer.getBookingOfferId().equals(id))
-                .findFirst()
-                .orElse(null);
+        return bookingOfferRepository.findById(id).orElse(null);
     }
 
     public BookingOffer createBookingOffer(BookingOffer bookingOffer) {
@@ -44,5 +41,9 @@ public class BookingOfferService {
             this.bookingOfferRepository.save(oldBookingOffer);
         }
         return oldBookingOffer;
+    }
+
+    public BookingOffer getBookingOfferByTitle(String title) {
+        return bookingOfferRepository.findByTitle(title).orElse(null);
     }
 }

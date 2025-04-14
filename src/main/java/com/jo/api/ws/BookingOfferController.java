@@ -36,6 +36,12 @@ public class BookingOfferController {
         return (bookingOffer != null) ? ResponseEntity.ok(bookingOffer) : ResponseEntity.notFound().build();
     }
 
+    @GetMapping("/title/{title}")
+    public ResponseEntity<BookingOffer> getBookingOfferByTitle(@PathVariable String title) {
+        BookingOffer bookingOffer = bookingOfferService.getBookingOfferByTitle(title);
+        return (bookingOffer != null) ? ResponseEntity.ok(bookingOffer) : ResponseEntity.notFound().build();
+    }
+
     @PostMapping
     public BookingOffer createBookingOffer(@RequestBody BookingOffer bookingOffer) {
         return bookingOfferService.createBookingOffer(bookingOffer);
