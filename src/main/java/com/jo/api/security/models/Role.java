@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Collection;
+
 @Entity
 @Table(name="roles")
 @Getter
@@ -17,6 +19,9 @@ public class Role {
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
     private ERole name;
+
+    @ManyToMany(mappedBy = "roles")
+    private Collection<User> users;
 
     public Role(ERole name) {
         this.name = name;
