@@ -24,12 +24,15 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false,unique = true)
+    private String userKey;
+
     @NotBlank
     @Size(max=50)
-    @Email
     private String username;
 
     @NotBlank
+    @Email // transfer l'annotation de username à email.
     private String email;
 
     @NotBlank
@@ -43,9 +46,11 @@ public class User {
             inverseJoinColumns = @JoinColumn(name="role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    public User(String username, String password) {
+    public User(String username, String password, String email, String userKey) {
         this.username = username;
         this.password = password;
+        this.email = email;
+        this.userKey = userKey;
     }
 
     public User() {
