@@ -102,6 +102,11 @@ public class AuthController {
                     .badRequest()
                     .body(new MessageResponse("Error: Username is already taken!"));
         }
+        if (userRepository.existsByAlias(signupRequest.getAlias())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: email is already taken!"));
+        }
 
         //Create new userKey
 
@@ -110,7 +115,7 @@ public class AuthController {
 
         //Create new user's account
         User user = new User(signupRequest.getUsername(),
-                encoder.encode(signupRequest.getPassword()), signupRequest.getEmail(), userKey);
+                encoder.encode(signupRequest.getPassword()), signupRequest.getAlias(), userKey);
 
         Set<String> strRoles = signupRequest.getRole();
         Set<Role> roles = new HashSet<>();

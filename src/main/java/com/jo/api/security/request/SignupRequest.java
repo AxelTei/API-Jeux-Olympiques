@@ -17,7 +17,7 @@ public class SignupRequest {
     private String username;
 
     @NotBlank
-    private String email;
+    private String alias;
 
     @NotBlank
     @Size(min = 8, max = 50)

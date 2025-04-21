@@ -28,12 +28,13 @@ public class User {
     private String userKey;
 
     @NotBlank
-    @Size(max=50)
+    @Email
+    @Size(min = 3, max=50)
     private String username;
 
     @NotBlank
-    @Email // transfer l'annotation de username à email.
-    private String email;
+    @Column(nullable = false,unique = true)
+    private String alias;
 
     @NotBlank
     @Size(max=120)
@@ -46,10 +47,10 @@ public class User {
             inverseJoinColumns = @JoinColumn(name="role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    public User(String username, String password, String email, String userKey) {
+    public User(String username, String password, String alias, String userKey) {
         this.username = username;
         this.password = password;
-        this.email = email;
+        this.alias = alias;
         this.userKey = userKey;
     }
 

@@ -67,8 +67,8 @@ public class UserSmokeTests {
         // Create User
 
         User user = new User();
-        user.setUsername("HenriDupont");
-        user.setEmail("henri.dupont@gmail.com");
+        user.setUsername("henri.dupont@gmail.com");
+        user.setAlias("HenriDupont");
         user.setPassword(encoder.encode("@Toto1994"));
         Set<Role> roles = new HashSet<>();
 
@@ -77,11 +77,13 @@ public class UserSmokeTests {
         roles.add(userRole);
 
         user.setRoles(roles);
+
         //Create new userKey
 
         UUID randomUUID = UUID.randomUUID();
         String userKey = randomUUID.toString().replaceAll("_", "");
         user.setUserKey(userKey);
+
         User savedUser = userRepository.save(user);
 
         assertThat(savedUser.getId()).isNotNull();
@@ -98,29 +100,35 @@ public class UserSmokeTests {
         // Create User
 
         User user = new User();
-        user.setUsername("HenriDupont");
-        user.setEmail("henri.dupont@gmail.com");
+        user.setUsername("henri.dupont@gmail.com");
+        user.setAlias("HenriDupont");
         user.setPassword(encoder.encode("@Toto1994"));
         Set<Role> roles = new HashSet<>();
 
         Role userRole = roleRepository.findByName(ERole.CUSTOMER)
-            .orElseThrow(() -> new RuntimeException("Error: Role is not found.")); //Bug ici, atteint tous le temps le orElseThrow ?
+            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
         roles.add(userRole);
 
         user.setRoles(roles);
-        // Faire Token
+
+        // Create New userKey
+
+        UUID randomUUID = UUID.randomUUID();
+        String userKey = randomUUID.toString().replaceAll("_", "");
+        user.setUserKey(userKey);
+
         User savedUser = userRepository.save(user);
 
         assertThat(savedUser.getId()).isNotNull();
 
         //Login bug à cause du chargement des roles manytomany non effectué dans la base
 
-        //LoginRequest loginRequest = new LoginRequest();
-        //loginRequest.setUsername("HenriDupont");
-        //loginRequest.setPassword("@Toto1994");
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setUsername("henri.dupont@gmail.com");
+        loginRequest.setPassword("@Toto1994");
 
-        //ResponseEntity<?> response = authController.authenticateUser(loginRequest);
+        ResponseEntity<?> response = authController.authenticateUser(loginRequest);
 
-        //assertThat(response.getStatusCode().value()).isEqualTo(200);
+        assertThat(response.getStatusCode().value()).isEqualTo(200);
     }
 }

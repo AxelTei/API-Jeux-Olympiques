@@ -24,4 +24,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findUserByRoles(String role);
 
     boolean existsByUsername(@NotBlank @Size(min = 3, max = 50) @Email String username);
+
+    boolean existsByAlias(@NotBlank String alias);
 }

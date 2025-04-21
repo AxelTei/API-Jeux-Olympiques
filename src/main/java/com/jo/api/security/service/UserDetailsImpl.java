@@ -41,6 +41,8 @@ public class UserDetailsImpl implements UserDetails {
                 authorities);
     }
 
+    // C'est ici que l'on peut configurer une sécurité contre les forces brutes
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
