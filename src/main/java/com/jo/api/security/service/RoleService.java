@@ -23,4 +23,14 @@ public class RoleService {
             this.roleRepository.save(role);
         }
     }
+
+    public void createRoleAdmin() {
+        Role oldRole = roleRepository.findByName(ERole.ADMIN)
+                .orElse(null);
+        if (oldRole == null) {
+            Role role = new Role();
+            role.setName(ERole.ADMIN);
+            this.roleRepository.save(role);
+        }
+    }
 }

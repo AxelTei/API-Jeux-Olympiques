@@ -90,9 +90,48 @@ public class AuthController {
         this.authService.changePassword(signupRequest);
     }
 
+    /**
+     * Endpoints à executer une fois et à supprimer en prod
+     * Ces endpoints servent pour la génération de comtpe Admin
+     * */
     @PostMapping("/loadRoleCustomer")
     public void loadRoleCustomer() {
          this.roleService.createRole();
+    }
+
+    @PostMapping("/loadRoleAdmin")
+    public void loadRoleAdmin() {
+        this.roleService.createRoleAdmin();
+    }
+
+    @PostMapping("/signupAdmin")
+    public ResponseEntity<?> registerAdmin() {
+
+        //Create Object Admin
+
+        User admin = new User();
+
+        //Create new userKey
+
+        UUID randomUUID = UUID.randomUUID();
+        String userKey = randomUUID.toString().replaceAll("_", "");
+
+        // Data Admin
+        admin.setUsername("Admin@JO2024.fr");
+        admin.setPassword(encoder.encode("@JeuxOlympiques4ever")); //mettre des variables d'environnement pour le push prod pour password et username
+        admin.setAlias("Admin");
+        admin.setUserKey(userKey);
+
+        Set<Role> roles = new HashSet<>();
+        Role adminRole = roleRepository.findByName(ERole.ADMIN)
+                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+        roles.add(adminRole);
+
+        admin.setRoles(roles);
+        userRepository.save(admin);
+
+        //réponse
+        return ResponseEntity.ok(new MessageResponse("Admin registered successfully!"));
     }
 
     @PostMapping("/signup")
