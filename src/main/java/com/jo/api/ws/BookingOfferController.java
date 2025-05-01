@@ -4,6 +4,7 @@ import com.jo.api.pojo.BookingOffer;
 import com.jo.api.service.BookingOfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,11 +43,13 @@ public class BookingOfferController {
         return (bookingOffer != null) ? ResponseEntity.ok(bookingOffer) : ResponseEntity.notFound().build();
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping
     public BookingOffer createBookingOffer(@RequestBody BookingOffer bookingOffer) {
         return bookingOfferService.createBookingOffer(bookingOffer);
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBookingOfferById(@PathVariable Long id) {
         //bookingOfferService.deleteBookingOfferById(id);
@@ -54,6 +57,7 @@ public class BookingOfferController {
         return ResponseEntity.noContent().build();
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<BookingOffer> updateBookingOfferById(@PathVariable Long id, @RequestBody BookingOffer bookingOffer) {
         //return bookingOfferService.updateBookingOfferById(id, bookingOffer);

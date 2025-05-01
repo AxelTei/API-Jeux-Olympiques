@@ -30,6 +30,7 @@ public class User {
     @NotBlank
     @Email
     @Size(min = 3, max=50)
+    @Column(nullable = false, unique = true)
     private String username;
 
     @NotBlank
@@ -41,7 +42,7 @@ public class User {
     @Pattern(regexp = "(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,}", message = "Le mot de passe doit contenir 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.")
     private String password;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name="user_roles",
             joinColumns = @JoinColumn(name="user_id"),
             inverseJoinColumns = @JoinColumn(name="role_id"))

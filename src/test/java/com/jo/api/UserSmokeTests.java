@@ -72,7 +72,7 @@ public class UserSmokeTests {
         user.setPassword(encoder.encode("@Toto1994"));
         Set<Role> roles = new HashSet<>();
 
-        Role userRole = roleRepository.findByName(ERole.CUSTOMER)
+        Role userRole = roleRepository.findByName(ERole.ROLE_CUSTOMER)
                 .orElseThrow(() -> new RuntimeException("Error: Role is not found.")); //Bug ici, atteint tous le temps le orElseThrow ?
         roles.add(userRole);
 
@@ -105,7 +105,7 @@ public class UserSmokeTests {
         user.setPassword(encoder.encode("@Toto1994"));
         Set<Role> roles = new HashSet<>();
 
-        Role userRole = roleRepository.findByName(ERole.CUSTOMER)
+        Role userRole = roleRepository.findByName(ERole.ROLE_CUSTOMER)
             .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
         roles.add(userRole);
 

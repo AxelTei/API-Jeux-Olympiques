@@ -2,6 +2,6 @@ package com.jo.api.security.models;
 
 public enum ERole {
 
-    CUSTOMER,
-    ADMIN,
+    ROLE_CUSTOMER,
+    ROLE_ADMIN,
 }

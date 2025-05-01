@@ -15,21 +15,21 @@ public class RoleService {
     private RoleRepository roleRepository;
 
     public void createRole() {
-        Role oldRole = roleRepository.findByName(ERole.CUSTOMER)
+        Role oldRole = roleRepository.findByName(ERole.ROLE_CUSTOMER)
                 .orElse(null);
         if (oldRole == null) {
             Role role = new Role();
-            role.setName(ERole.CUSTOMER);
+            role.setName(ERole.ROLE_CUSTOMER);
             this.roleRepository.save(role);
         }
     }
 
     public void createRoleAdmin() {
-        Role oldRole = roleRepository.findByName(ERole.ADMIN)
+        Role oldRole = roleRepository.findByName(ERole.ROLE_ADMIN)
                 .orElse(null);
         if (oldRole == null) {
             Role role = new Role();
-            role.setName(ERole.ADMIN);
+            role.setName(ERole.ROLE_ADMIN);
             this.roleRepository.save(role);
         }
     }

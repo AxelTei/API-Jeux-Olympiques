@@ -75,6 +75,8 @@ public class AuthController {
         return ResponseEntity.ok(new JwtResponse(jwt,
                 userDetails.getId(),
                 userDetails.getUsername(),
+                userDetails.getAlias(),
+                userDetails.getUserKey(),
                 roles));
     }
 
@@ -123,7 +125,7 @@ public class AuthController {
         admin.setUserKey(userKey);
 
         Set<Role> roles = new HashSet<>();
-        Role adminRole = roleRepository.findByName(ERole.ADMIN)
+        Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
         roles.add(adminRole);
 
@@ -160,20 +162,20 @@ public class AuthController {
         Set<Role> roles = new HashSet<>();
 
         if (strRoles == null) {
-            Role userRole = roleRepository.findByName(ERole.CUSTOMER)
+            Role userRole = roleRepository.findByName(ERole.ROLE_CUSTOMER)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
             roles.add(userRole);
         } else {
             strRoles.forEach(role -> {
                 switch (role) {
                     case "admin":
-                        Role adminRole = roleRepository.findByName(ERole.ADMIN)
+                        Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(adminRole);
 
                         break;
                     default:
-                        Role userRole = roleRepository.findByName(ERole.CUSTOMER)
+                        Role userRole = roleRepository.findByName(ERole.ROLE_CUSTOMER)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found"));
                         roles.add(userRole);
                 }
