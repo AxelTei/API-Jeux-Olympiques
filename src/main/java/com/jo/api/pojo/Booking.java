@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @Getter
 @Setter
@@ -16,12 +15,15 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bookingId;
 
-    private String bookingOffer;
+    @Column(nullable = false)
+    private String bookingOfferTitle;
 
+    @Column(nullable = false)
     private BigDecimal price;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String userKey;
 
-    private String guestNames;
+    @Column(nullable = false)
+    private Integer numberOfGuests;
 }
