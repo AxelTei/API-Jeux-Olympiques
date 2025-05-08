@@ -25,4 +25,6 @@ public class BookingService {
     public void deleteBookingById(Long id) {
         bookingRepository.deleteById(id);
     }
+
+    public Booking getBookingById(Long id) {return bookingRepository.findById(id).orElse(null);}
 }

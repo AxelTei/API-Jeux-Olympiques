@@ -24,6 +24,17 @@ public class BookingController {
         return bookingService.getAllBookings();
     }
 
+    /**
+     *
+     * retourne une seule réservation
+     * @return one booking
+     */
+    @GetMapping("/{id}")
+    public ResponseEntity<Booking> getBookingById(@PathVariable Long id) {
+        Booking booking = bookingService.getBookingById(id);
+        return (booking != null) ? ResponseEntity.ok(booking) : ResponseEntity.notFound().build();
+    }
+
     @PostMapping
     public Booking createBookingOffer(@RequestBody Booking booking) {
         return bookingService.createBooking(booking);
