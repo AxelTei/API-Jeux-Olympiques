@@ -8,5 +8,7 @@ public interface ApiRegistration {
 
     final String REST_BOOKING = "/booking";
 
+    final String REST_PAYMENT = "/payment";
+
     final String REST_TICKET = "/ticket";
 }
