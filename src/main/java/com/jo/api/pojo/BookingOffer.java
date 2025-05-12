@@ -16,8 +16,13 @@ public class BookingOffer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bookingOfferId;
 
+    @Column(nullable = false, unique = true)
     private String title;
+
+    @Column(nullable = false)
     private BigDecimal price;
+
+    @Column(nullable = false)
     private Integer numberOfCustomers;
 
     @OneToOne(mappedBy = "bookingOffer", cascade = CascadeType.ALL)

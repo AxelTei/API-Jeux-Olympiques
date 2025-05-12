@@ -56,4 +56,26 @@ public class BookingOfferService {
     public BookingOffer getBookingOfferByTitle(String title) {
         return bookingOfferRepository.findByTitle(title).orElse(null);
     }
+
+    /**
+     * Incrémenter le compteur de ventes pour une offre spécifique
+     * Cette méthode est maintenant publique et peut être appelée directement depuis le contrôleur
+     * @param offerTitle Titre de l'offre
+     */
+    public void incrementSellsForOffer(String offerTitle) {
+        if (offerTitle == null || offerTitle.trim().isEmpty()) {
+            return; // Ne rien faire si le titre est vide
+        }
+
+        BookingOffer offer = this.getBookingOfferByTitle(offerTitle);
+        if (offer != null && offer.getSellsByOffer() != null) {
+            SellsByOffer sellsByOffer = offer.getSellsByOffer();
+            Integer currentSells = sellsByOffer.getSells();
+            if (currentSells == null) {
+                currentSells = 0;
+            }
+            sellsByOffer.setSells(currentSells + 1);
+            this.updateBookingOfferById(offer.getBookingOfferId(), offer);
+        }
+    }
 }

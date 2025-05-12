@@ -3,6 +3,7 @@ package com.jo.api.ws;
 import com.jo.api.pojo.Ticket;
 import com.jo.api.request.TicketRequest;
 import com.jo.api.response.TicketResponse;
+import com.jo.api.service.BookingOfferService;
 import com.jo.api.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,9 @@ public class TicketController {
 
     @Autowired
     private TicketService ticketService;
+
+    @Autowired
+    private BookingOfferService bookingOfferService;
 
     /**
      * retourne tous les tickets
@@ -45,6 +49,7 @@ public class TicketController {
 
     @PostMapping
     public Ticket createTicket(@RequestBody TicketRequest request) {
+        bookingOfferService.incrementSellsForOffer(request.getOfferTitle());
         return ticketService.createTicket(request);
     }
 
