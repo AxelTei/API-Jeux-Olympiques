@@ -21,5 +21,7 @@ public class TicketResponse {
 
     private String purchaseDate;
 
+    private String qrCodeKey;
+
     private String used;
 }
