@@ -11,4 +11,6 @@ public interface ApiRegistration {
     final String REST_PAYMENT = "/payment";
 
     final String REST_TICKET = "/ticket";
+
+    final String REST_SELLSBYOFFER = "/sellsByOffer";
 }

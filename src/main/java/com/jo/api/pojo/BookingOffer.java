@@ -1,9 +1,7 @@
 package com.jo.api.pojo;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,4 +19,8 @@ public class BookingOffer {
     private String title;
     private BigDecimal price;
     private Integer numberOfCustomers;
+
+    @OneToOne(mappedBy = "bookingOffer", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private SellsByOffer sellsByOffer;
 }

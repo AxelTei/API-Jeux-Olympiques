@@ -1,13 +1,12 @@
 package com.jo.api.service;
 
 import com.jo.api.pojo.BookingOffer;
+import com.jo.api.pojo.SellsByOffer;
 import com.jo.api.repository.BookingOfferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public class BookingOfferService {
@@ -24,6 +23,12 @@ public class BookingOfferService {
     }
 
     public BookingOffer createBookingOffer(BookingOffer bookingOffer) {
+        SellsByOffer sellsByOffer = new SellsByOffer();
+        sellsByOffer.setOfferTitle(bookingOffer.getTitle());
+        sellsByOffer.setOfferPrice(bookingOffer.getPrice());
+        sellsByOffer.setSells(0);
+        bookingOffer.setSellsByOffer(sellsByOffer);
+        sellsByOffer.setBookingOffer(bookingOffer);
         bookingOfferRepository.save(bookingOffer);
         return bookingOffer;
     }
@@ -38,6 +43,11 @@ public class BookingOfferService {
             oldBookingOffer.setTitle(bookingOffer.getTitle());
             oldBookingOffer.setPrice(bookingOffer.getPrice());
             oldBookingOffer.setNumberOfCustomers(bookingOffer.getNumberOfCustomers());
+
+            if (oldBookingOffer.getSellsByOffer() != null) {
+                oldBookingOffer.getSellsByOffer().setOfferTitle(bookingOffer.getTitle());
+                oldBookingOffer.getSellsByOffer().setOfferPrice(bookingOffer.getPrice());
+            }
             this.bookingOfferRepository.save(oldBookingOffer);
         }
         return oldBookingOffer;
