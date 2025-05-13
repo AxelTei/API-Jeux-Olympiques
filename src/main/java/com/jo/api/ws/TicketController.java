@@ -26,7 +26,7 @@ public class TicketController {
      * @return a list of tickets
      */
     @GetMapping
-    public List<Ticket> getAllBookings() {
+    public List<Ticket> getAllTickets() {
         return ticketService.getAllTickets();
     }
 
