@@ -33,7 +33,6 @@ public class TicketController {
             List<Ticket> tickets = ticketService.getAllTickets();
             return ResponseEntity.ok(tickets);
         } catch (Exception e) {
-            // Log l'erreur (idéalement avec un logger comme SLF4J)
             System.err.println("Erreur lors de la récupération des tickets: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
