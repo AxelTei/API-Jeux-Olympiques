@@ -17,6 +17,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -56,6 +57,12 @@ public class AuthController {
 
     @Autowired
     RoleService roleService;
+
+    @Value("${admin.mail}")
+    private String adminMail;
+
+    @Value("${admin.password}")
+    private String adminPassword;
 
     private final SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
 
@@ -119,8 +126,8 @@ public class AuthController {
         String userKey = randomUUID.toString().replaceAll("_", "");
 
         // Data Admin
-        admin.setUsername("Admin@JO2024.fr");
-        admin.setPassword(encoder.encode("@JeuxOlympiques4ever")); //mettre des variables d'environnement pour le push prod pour password et username
+        admin.setUsername(adminMail);
+        admin.setPassword(encoder.encode(adminPassword)); //mettre des variables d'environnement pour le push prod pour password et username
         admin.setAlias("Admin");
         admin.setUserKey(userKey);
 
