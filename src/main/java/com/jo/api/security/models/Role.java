@@ -26,7 +26,7 @@ public class Role {
             required = true)
     private ERole name;
 
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
     @Schema(description = "Utilisateurs ayant ce rôle",
             accessMode = Schema.AccessMode.READ_ONLY,
             hidden = true)
