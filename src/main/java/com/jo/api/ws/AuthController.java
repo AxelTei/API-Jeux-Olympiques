@@ -13,11 +13,20 @@ import com.jo.api.security.response.MessageResponse;
 import com.jo.api.security.service.AuthService;
 import com.jo.api.security.service.RoleService;
 import com.jo.api.security.service.UserDetailsImpl;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -35,6 +44,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("auth")
+@Tag(name = "Authentification", description = "API pour la gestion de l'authentification et des utilisateurs")
 public class AuthController {
 
     @Autowired
@@ -66,8 +76,19 @@ public class AuthController {
 
     private final SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
 
+    @Operation(summary = "Connexion utilisateur",
+            description = "Authentifie un utilisateur et génère un token JWT")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Authentification réussie",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = JwtResponse.class))),
+            @ApiResponse(responseCode = "401", description = "Identifiants invalides",
+                    content = @Content)
+    })
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> authenticateUser(
+            @Parameter(description = "Informations de connexion", required = true)
+            @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
@@ -87,16 +108,16 @@ public class AuthController {
                 roles));
     }
 
+    @Operation(summary = "Déconnexion utilisateur",
+            description = "Déconnecte l'utilisateur actuellement authentifié",
+            security = @SecurityRequirement(name = "bearerAuth"))
+    @ApiResponse(responseCode = "200", description = "Déconnexion réussie",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                    schema = @Schema(implementation = MessageResponse.class)))
     @PostMapping("/signout")
     public ResponseEntity<?> logOut(Authentication authentication, HttpServletRequest request, HttpServletResponse response) {
-        // .. perform logout
         this.logoutHandler.logout(request, response, authentication);
         return ResponseEntity.ok(new MessageResponse("User disconnected!"));
-    }
-
-    @PutMapping("/changePassword")
-    public void changePassword (@Valid @RequestBody SignupRequest signupRequest) {
-        this.authService.changePassword(signupRequest);
     }
 
     /**
@@ -127,7 +148,7 @@ public class AuthController {
 
         // Data Admin
         admin.setUsername(adminMail);
-        admin.setPassword(encoder.encode(adminPassword)); //mettre des variables d'environnement pour le push prod pour password et username
+        admin.setPassword(encoder.encode(adminPassword));
         admin.setAlias("Admin");
         admin.setUserKey(userKey);
 
@@ -143,8 +164,20 @@ public class AuthController {
         return ResponseEntity.ok(new MessageResponse("Admin registered successfully!"));
     }
 
+    @Operation(summary = "Inscription utilisateur",
+            description = "Permet à un nouvel utilisateur de créer un compte")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Inscription réussie",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = MessageResponse.class))),
+            @ApiResponse(responseCode = "400", description = "Nom d'utilisateur ou alias déjà pris",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = MessageResponse.class)))
+    })
     @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@RequestBody SignupRequest signupRequest) {
+    public ResponseEntity<?> registerUser(
+            @Parameter(description = "Informations d'inscription", required = true)
+            @RequestBody SignupRequest signupRequest) {
         if (userRepository.existsByUsername(signupRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()

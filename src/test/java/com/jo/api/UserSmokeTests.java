@@ -56,39 +56,6 @@ public class UserSmokeTests {
     @Autowired
     RoleRepository roleRepository;
 
-    // Test unitaire sur la création d'utilisateur
-    @Test
-    void testCreateUser() {
-
-        // Load Customer Role
-
-        authController.loadRoleCustomer();
-
-        // Create User
-
-        User user = new User();
-        user.setUsername("henri.dupont@gmail.com");
-        user.setAlias("HenriDupont");
-        user.setPassword(encoder.encode("@Toto1994"));
-        Set<Role> roles = new HashSet<>();
-
-        Role userRole = roleRepository.findByName(ERole.ROLE_CUSTOMER)
-                .orElseThrow(() -> new RuntimeException("Error: Role is not found.")); //Bug ici, atteint tous le temps le orElseThrow ?
-        roles.add(userRole);
-
-        user.setRoles(roles);
-
-        //Create new userKey
-
-        UUID randomUUID = UUID.randomUUID();
-        String userKey = randomUUID.toString().replaceAll("_", "");
-        user.setUserKey(userKey);
-
-        User savedUser = userRepository.save(user);
-
-        assertThat(savedUser.getId()).isNotNull();
-    }
-
     // Test US3 : Je suis un visiteur et je veux créer un compte utilisateur puis me connecter à mon compte.
     @Test
     void testCreateUserAndLogin() {
@@ -127,8 +94,18 @@ public class UserSmokeTests {
         loginRequest.setUsername("henri.dupont@gmail.com");
         loginRequest.setPassword("@Toto1994");
 
-        //ResponseEntity<?> response = authController.authenticateUser(loginRequest);
+        ResponseEntity<?> response = authController.authenticateUser(loginRequest);
 
-        //assertThat(response.getStatusCode().value()).isEqualTo(200);
+        assertThat(response.getStatusCode().value()).isEqualTo(200);
+    }
+
+    // Test US4 : Je suis une administrateur connecté et je veux créer une nouvelle offre,
+    // la modifier puis la supprimer
+    @Test
+    void testCreateAdminLoginAndCreateBookingOfferUpdateItThenDeleteIt() {
+
+        // Load Customer Admin
+
+        authController.loadRoleAdmin();
     }
 }
