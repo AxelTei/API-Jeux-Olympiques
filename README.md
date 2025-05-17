@@ -9,7 +9,7 @@
 
 ## 📋 À propos du projet
 
-Cette API Spring Boot permet de gérer la billetterie pour les Jeux Olympiques de Paris 2024. Elle offre des fonctionnalités de réservation, de gestion des événements sportifs et de traitement des billets pour les compétitions olympiques.
+Cette API Spring Boot permet de gérer la billetterie pour les Jeux Olympiques de Paris 2024.(Projet Étudiant Fictif) Elle offre des fonctionnalités de réservation et de traitement des billets pour les compétitions olympiques.
 
 ## 🛠️ Technologies utilisées
 
