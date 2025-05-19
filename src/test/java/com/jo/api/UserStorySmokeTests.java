@@ -71,8 +71,8 @@ public class UserStorySmokeTests {
         System.setProperty("spring.datasource.url", mariaDBContainer.getJdbcUrl());
         System.setProperty("spring.datasource.username", mariaDBContainer.getUsername());
         System.setProperty("spring.datasource.password", mariaDBContainer.getPassword());
-        authController.loadRoleAdmin();
-        authController.loadRoleCustomer();
+        //authController.loadRoleAdmin();
+        //authController.loadRoleCustomer();
     }
 
     // Les Tests de notre User Entity
