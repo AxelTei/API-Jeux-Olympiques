@@ -135,7 +135,7 @@ public class AuthControllerTests {
     @Test
     void testLoadRoleCustomer() {
         // Exécution du test
-        //authController.loadRoleCustomer();
+        authController.loadRoleCustomer();
 
         // Vérification que la méthode du service a été appelée
         verify(roleService, times(1)).createRole();
@@ -144,7 +144,7 @@ public class AuthControllerTests {
     @Test
     void testLoadRoleAdmin() {
         // Exécution du test
-        //authController.loadRoleAdmin();
+        authController.loadRoleAdmin();
 
         // Vérification que la méthode du service a été appelée
         verify(roleService, times(1)).createRoleAdmin();

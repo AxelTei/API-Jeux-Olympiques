@@ -124,15 +124,15 @@ public class AuthController {
      * Endpoints à executer une fois et à supprimer en prod
      * Ces endpoints servent pour la génération de comtpe Admin et le chargement des données
      * */
-    //@PostMapping("/loadRoleCustomer")
-    //public void loadRoleCustomer() {
-         //this.roleService.createRole();
-    //}
+    @PostMapping("/loadRoleCustomer")
+    public void loadRoleCustomer() {
+         this.roleService.createRole();
+    }
 
-    //@PostMapping("/loadRoleAdmin")
-    //public void loadRoleAdmin() {
-        //this.roleService.createRoleAdmin();
-    //}
+    @PostMapping("/loadRoleAdmin")
+    public void loadRoleAdmin() {
+        this.roleService.createRoleAdmin();
+    }
 
     //@PostMapping("/signupAdmin")
     //public ResponseEntity<?> registerAdmin() {
