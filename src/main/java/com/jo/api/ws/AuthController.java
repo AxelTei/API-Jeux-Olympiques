@@ -122,47 +122,47 @@ public class AuthController {
 
     /**
      * Endpoints à executer une fois et à supprimer en prod
-     * Ces endpoints servent pour la génération de comtpe Admin
+     * Ces endpoints servent pour la génération de comtpe Admin et le chargement des données
      * */
-    @PostMapping("/loadRoleCustomer")
-    public void loadRoleCustomer() {
-         this.roleService.createRole();
-    }
+    //@PostMapping("/loadRoleCustomer")
+    //public void loadRoleCustomer() {
+         //this.roleService.createRole();
+    //}
 
-    @PostMapping("/loadRoleAdmin")
-    public void loadRoleAdmin() {
-        this.roleService.createRoleAdmin();
-    }
+    //@PostMapping("/loadRoleAdmin")
+    //public void loadRoleAdmin() {
+        //this.roleService.createRoleAdmin();
+    //}
 
-    @PostMapping("/signupAdmin")
-    public ResponseEntity<?> registerAdmin() {
+    //@PostMapping("/signupAdmin")
+    //public ResponseEntity<?> registerAdmin() {
 
         //Create Object Admin
 
-        User admin = new User();
+        //User admin = new User();
 
         //Create new userKey
 
-        UUID randomUUID = UUID.randomUUID();
-        String userKey = randomUUID.toString().replaceAll("_", "");
+        //UUID randomUUID = UUID.randomUUID();
+        //String userKey = randomUUID.toString().replaceAll("_", "");
 
         // Data Admin
-        admin.setUsername(adminMail);
-        admin.setPassword(encoder.encode(adminPassword));
-        admin.setAlias("Admin");
-        admin.setUserKey(userKey);
+        //admin.setUsername(adminMail);
+        //admin.setPassword(encoder.encode(adminPassword));
+        //admin.setAlias("Admin");
+        //admin.setUserKey(userKey);
 
-        Set<Role> roles = new HashSet<>();
-        Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-        roles.add(adminRole);
+        //Set<Role> roles = new HashSet<>();
+        //Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
+                //.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+        //roles.add(adminRole);
 
-        admin.setRoles(roles);
-        userRepository.save(admin);
+        //admin.setRoles(roles);
+        //userRepository.save(admin);
 
         //réponse
-        return ResponseEntity.ok(new MessageResponse("Admin registered successfully!"));
-    }
+        //return ResponseEntity.ok(new MessageResponse("Admin registered successfully!"));
+    //}
 
     @Operation(summary = "Inscription utilisateur",
             description = "Permet à un nouvel utilisateur de créer un compte")
